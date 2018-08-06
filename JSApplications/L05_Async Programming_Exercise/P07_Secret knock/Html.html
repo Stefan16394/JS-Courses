@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        p:nth-child(even) {
+        color: red;
+        }
+        p:nth-child(odd) {
+        color: blue;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+</head>
+<body>
+    <button id="knock">Knock</button>
+    <div id="content">Messages:
+            <div id="knockId" style="display:none">Knock Knock.</div>
+    </div>
+</body>
+<script>
+    $("#knock").on("click",function(){
+        let message="Knock Knock."
+        knock(message)
+    })
+    function knock(message){
+        $.ajax({
+            method:"GET",
+            url:"https://baas.kinvey.com/appdata/kid_BJXTsSi-e/knock?query="+message,
+            headers:{
+                "Authorization":"Basic "+btoa("guest"+":"+"guest"),
+                "Content-type":"application/json"
+            }
+        }).then(function(res){
+        
+           if(res.message){
+               message=res.message
+               $("#knockId").css("display","block")
+              
+                   $("#content").append(`<p>${res.answer}</p>`)
+               
+                   $("#content").append(`<p>${res.message}</p>`)
+               
+               knock(message)
+           }
+           else{
+            $("#content").append(`<p>${res.answer}</p>`)
+           }
+        })
+       
+    }
+</script>
+</html>

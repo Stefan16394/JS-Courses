@@ -1,0 +1,33 @@
+{{> header}}
+{{> navigation}}
+<div class="content">
+<section id="viewEdit">
+    <div class="submitArea">
+        <h1>Edit Link</h1>
+        <p>Please, fill out the form. A thumbnail image/description is not required.</p>
+    </div>
+    <div class="submitArea formContainer">
+        <form id="editPostForm" class="submitForm" action="#/details/edit/{{id}}" method="post">
+            <label>Link URL:</label>
+            <input name="url" type="text"
+                   value={{url}}>
+            <label>Link Title:</label>
+            <input name="title" type="text" value={{title}}>
+            <label>Link Thumbnail Image (optional):</label>
+            {{#if imageUrl}}
+           <input name="image" type="text"value={{imageUrl}}>
+            {{else}}
+             <input name="image" type="text"value="No image URL">
+            {{/if}}
+             <label>Comment (optional):</label>
+             {{#if description}}
+            <textarea name="description">{{description}}</textarea>
+             {{else}}
+            <textarea name="description">No desc</textarea>
+             {{/if}}
+            <input id="btnEditPost" type="submit" value="Edit Post">
+        </form>
+    </div>
+</section>
+</div>
+{{> footer}}
